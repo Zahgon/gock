@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httputil"
-	"net/url"
-	"regexp"
 	"sync"
 )
 
@@ -36,143 +34,65 @@ var unmatchedRequests = []*http.Request{}
 // New creates and registers a new HTTP mock with
 // default settings and returns the Request DSL for HTTP mock
 // definition and set up.
-func New(uri string) *Request {
-	Intercept()
+func New(uri string) *Request { _ = "STUB: not implemented"; return nil }
 
-	res := NewResponse()
-	req := NewRequest()
-	req.URLStruct, res.Error = url.Parse(normalizeURI(uri))
-
-	// Create the new mock expectation
-	exp := NewMock(req, res)
-	Register(exp)
-
-	return req
-}
+// Create the new mock expectation
 
 // Intercepting returns true if gock is currently able to intercept.
-func Intercepting() bool {
-	mutex.Lock()
-	defer mutex.Unlock()
-	return http.DefaultTransport == DefaultTransport
-}
+func Intercepting() bool { _ = "STUB: not implemented"; return false }
 
 // Intercept enables HTTP traffic interception via http.DefaultTransport.
 // If you are using a custom HTTP transport, you have to use `gock.Transport()`
-func Intercept() {
-	if !Intercepting() {
-		mutex.Lock()
-		http.DefaultTransport = DefaultTransport
-		mutex.Unlock()
-	}
-}
+func Intercept() { _ = "STUB: not implemented"; return }
 
 // InterceptClient allows the developer to intercept HTTP traffic using
 // a custom http.Client who uses a non default http.Transport/http.RoundTripper implementation.
-func InterceptClient(cli *http.Client) {
-	_, ok := cli.Transport.(*Transport)
-	if ok {
-		return // if transport already intercepted, just ignore it
-	}
-	trans := NewTransport()
-	trans.Transport = cli.Transport
-	cli.Transport = trans
-}
+func InterceptClient(cli *http.Client) { _ = "STUB: not implemented"; return }
+
+// if transport already intercepted, just ignore it
 
 // RestoreClient allows the developer to disable and restore the
 // original transport in the given http.Client.
-func RestoreClient(cli *http.Client) {
-	trans, ok := cli.Transport.(*Transport)
-	if !ok {
-		return
-	}
-	cli.Transport = trans.Transport
-}
+func RestoreClient(cli *http.Client) { _ = "STUB: not implemented"; return }
 
 // Disable disables HTTP traffic interception by gock.
-func Disable() {
-	mutex.Lock()
-	defer mutex.Unlock()
-	http.DefaultTransport = NativeTransport
-}
+func Disable() { _ = "STUB: not implemented"; return }
 
 // Off disables the default HTTP interceptors and removes
 // all the registered mocks, even if they have not been intercepted yet.
 func Off() {
-	Flush()
-	Disable()
+	_ = "STUB: not implemented"
+
+	// OffAll is like `Off()`, but it also removes the unmatched requests registry.
+	return
 }
 
-// OffAll is like `Off()`, but it also removes the unmatched requests registry.
-func OffAll() {
-	Flush()
-	Disable()
-	CleanUnmatchedRequest()
-}
+func OffAll() { _ = "STUB: not implemented"; return }
 
 // Observe provides a hook to support inspection of the request and matched mock
-func Observe(fn ObserverFunc) {
-	mutex.Lock()
-	defer mutex.Unlock()
-	config.Observer = fn
-}
+func Observe(fn ObserverFunc) { _ = "STUB: not implemented"; return }
 
 // EnableNetworking enables real HTTP networking
-func EnableNetworking() {
-	mutex.Lock()
-	defer mutex.Unlock()
-	config.Networking = true
-}
+func EnableNetworking() { _ = "STUB: not implemented"; return }
 
 // DisableNetworking disables real HTTP networking
-func DisableNetworking() {
-	mutex.Lock()
-	defer mutex.Unlock()
-	config.Networking = false
-}
+func DisableNetworking() { _ = "STUB: not implemented"; return }
 
 // NetworkingFilter determines if an http.Request should be triggered or not.
-func NetworkingFilter(fn FilterRequestFunc) {
-	mutex.Lock()
-	defer mutex.Unlock()
-	config.NetworkingFilters = append(config.NetworkingFilters, fn)
-}
+func NetworkingFilter(fn FilterRequestFunc) { _ = "STUB: not implemented"; return }
 
 // DisableNetworkingFilters disables registered networking filters.
-func DisableNetworkingFilters() {
-	mutex.Lock()
-	defer mutex.Unlock()
-	config.NetworkingFilters = []FilterRequestFunc{}
-}
+func DisableNetworkingFilters() { _ = "STUB: not implemented"; return }
 
 // GetUnmatchedRequests returns all requests that have been received but haven't matched any mock
-func GetUnmatchedRequests() []*http.Request {
-	mutex.Lock()
-	defer mutex.Unlock()
-	return unmatchedRequests
-}
+func GetUnmatchedRequests() []*http.Request { _ = "STUB: not implemented"; return nil }
 
 // HasUnmatchedRequest returns true if gock has received any requests that didn't match a mock
-func HasUnmatchedRequest() bool {
-	return len(GetUnmatchedRequests()) > 0
-}
+func HasUnmatchedRequest() bool { _ = "STUB: not implemented"; return false }
 
 // CleanUnmatchedRequest cleans the unmatched requests internal registry.
-func CleanUnmatchedRequest() {
-	mutex.Lock()
-	defer mutex.Unlock()
-	unmatchedRequests = []*http.Request{}
-}
+func CleanUnmatchedRequest() { _ = "STUB: not implemented"; return }
 
-func trackUnmatchedRequest(req *http.Request) {
-	mutex.Lock()
-	defer mutex.Unlock()
-	unmatchedRequests = append(unmatchedRequests, req)
-}
+func trackUnmatchedRequest(req *http.Request) { _ = "STUB: not implemented"; return }
 
-func normalizeURI(uri string) string {
-	if ok, _ := regexp.MatchString("^http[s]?", uri); !ok {
-		return "http://" + uri
-	}
-	return uri
-}
+func normalizeURI(uri string) string { _ = "STUB: not implemented"; return "" }

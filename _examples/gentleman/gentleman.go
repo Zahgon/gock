@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
+	"github.com/h2non/gock"
 	"gopkg.in/h2non/gentleman.v1"
 	"gopkg.in/h2non/gentleman.v1/context"
-	"github.com/h2non/gock"
 )
 
 // Usege example with gentleman HTTP client toolkit.

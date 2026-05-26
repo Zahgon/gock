@@ -1,12 +1,9 @@
 package gock
 
 import (
-	"encoding/base64"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 // MapRequestFunc represents the required function interface for request mappers.
@@ -65,253 +62,135 @@ type Request struct {
 }
 
 // NewRequest creates a new Request instance.
-func NewRequest() *Request {
-	return &Request{
-		Counter:    1,
-		URLStruct:  &url.URL{},
-		Header:     make(http.Header),
-		PathParams: make(map[string]string),
-	}
-}
+func NewRequest() *Request { _ = "STUB: not implemented"; return nil }
 
 // URL defines the mock URL to match.
-func (r *Request) URL(uri string) *Request {
-	r.URLStruct, r.Error = url.Parse(uri)
-	return r
-}
+func (r *Request) URL(uri string) *Request { _ = "STUB: not implemented"; return nil }
 
 // SetURL defines the url.URL struct to be used for matching.
-func (r *Request) SetURL(u *url.URL) *Request {
-	r.URLStruct = u
-	return r
-}
+func (r *Request) SetURL(u *url.URL) *Request { _ = "STUB: not implemented"; return nil }
 
 // Path defines the mock URL path value to match.
-func (r *Request) Path(path string) *Request {
-	r.URLStruct.Path = path
-	return r
-}
+func (r *Request) Path(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Get specifies the GET method and the given URL path to match.
-func (r *Request) Get(path string) *Request {
-	return r.method("GET", path)
-}
+func (r *Request) Get(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Post specifies the POST method and the given URL path to match.
-func (r *Request) Post(path string) *Request {
-	return r.method("POST", path)
-}
+func (r *Request) Post(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Put specifies the PUT method and the given URL path to match.
-func (r *Request) Put(path string) *Request {
-	return r.method("PUT", path)
-}
+func (r *Request) Put(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Delete specifies the DELETE method and the given URL path to match.
-func (r *Request) Delete(path string) *Request {
-	return r.method("DELETE", path)
-}
+func (r *Request) Delete(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Patch specifies the PATCH method and the given URL path to match.
-func (r *Request) Patch(path string) *Request {
-	return r.method("PATCH", path)
-}
+func (r *Request) Patch(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Head specifies the HEAD method and the given URL path to match.
-func (r *Request) Head(path string) *Request {
-	return r.method("HEAD", path)
-}
+func (r *Request) Head(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // method is a DRY shortcut used to declare the expected HTTP method and URL path.
-func (r *Request) method(method, path string) *Request {
-	if path != "/" {
-		r.URLStruct.Path = path
-	}
-	r.Method = strings.ToUpper(method)
-	return r
-}
+func (r *Request) method(method, path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Body defines the body data to match based on a io.Reader interface.
-func (r *Request) Body(body io.Reader) *Request {
-	r.BodyBuffer, r.Error = ioutil.ReadAll(body)
-	return r
-}
+func (r *Request) Body(body io.Reader) *Request { _ = "STUB: not implemented"; return nil }
 
 // BodyString defines the body to match based on a given string.
-func (r *Request) BodyString(body string) *Request {
-	r.BodyBuffer = []byte(body)
-	return r
-}
+func (r *Request) BodyString(body string) *Request { _ = "STUB: not implemented"; return nil }
 
 // File defines the body to match based on the given file path string.
-func (r *Request) File(path string) *Request {
-	r.BodyBuffer, r.Error = ioutil.ReadFile(path)
-	return r
-}
+func (r *Request) File(path string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Compression defines the request compression scheme, and enables automatic body decompression.
 // Supports only the "gzip" scheme so far.
-func (r *Request) Compression(scheme string) *Request {
-	r.Header.Set("Content-Encoding", scheme)
-	r.CompressionScheme = scheme
-	return r
-}
+func (r *Request) Compression(scheme string) *Request { _ = "STUB: not implemented"; return nil }
 
 // JSON defines the JSON body to match based on a given structure.
-func (r *Request) JSON(data interface{}) *Request {
-	if r.Header.Get("Content-Type") == "" {
-		r.Header.Set("Content-Type", "application/json")
-	}
-	r.BodyBuffer, r.Error = readAndDecode(data, "json")
-	return r
-}
+func (r *Request) JSON(data interface{}) *Request { _ = "STUB: not implemented"; return nil }
 
 // XML defines the XML body to match based on a given structure.
-func (r *Request) XML(data interface{}) *Request {
-	if r.Header.Get("Content-Type") == "" {
-		r.Header.Set("Content-Type", "application/xml")
-	}
-	r.BodyBuffer, r.Error = readAndDecode(data, "xml")
-	return r
-}
+func (r *Request) XML(data interface{}) *Request { _ = "STUB: not implemented"; return nil }
 
 // MatchType defines the request Content-Type MIME header field.
 // Supports custom MIME types and type aliases. E.g: json, xml, form, text...
-func (r *Request) MatchType(kind string) *Request {
-	mime := BodyTypeAliases[kind]
-	if mime != "" {
-		kind = mime
-	}
-	r.Header.Set("Content-Type", kind)
-	return r
-}
+func (r *Request) MatchType(kind string) *Request { _ = "STUB: not implemented"; return nil }
 
 // BasicAuth defines a username and password for HTTP Basic Authentication
 func (r *Request) BasicAuth(username, password string) *Request {
-	r.Header.Set("Authorization", "Basic "+basicAuth(username, password))
-	return r
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MatchHeader defines a new key and value header to match.
-func (r *Request) MatchHeader(key, value string) *Request {
-	r.Header.Set(key, value)
-	return r
-}
+func (r *Request) MatchHeader(key, value string) *Request { _ = "STUB: not implemented"; return nil }
 
 // HeaderPresent defines that a header field must be present in the request.
-func (r *Request) HeaderPresent(key string) *Request {
-	r.Header.Set(key, ".*")
-	return r
-}
+func (r *Request) HeaderPresent(key string) *Request { _ = "STUB: not implemented"; return nil }
 
 // MatchHeaders defines a map of key-value headers to match.
 func (r *Request) MatchHeaders(headers map[string]string) *Request {
-	for key, value := range headers {
-		r.Header.Set(key, value)
-	}
-	return r
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MatchParam defines a new key and value URL query param to match.
-func (r *Request) MatchParam(key, value string) *Request {
-	query := r.URLStruct.Query()
-	query.Set(key, value)
-	r.URLStruct.RawQuery = query.Encode()
-	return r
-}
+func (r *Request) MatchParam(key, value string) *Request { _ = "STUB: not implemented"; return nil }
 
 // MatchParams defines a map of URL query param key-value to match.
 func (r *Request) MatchParams(params map[string]string) *Request {
-	query := r.URLStruct.Query()
-	for key, value := range params {
-		query.Set(key, value)
-	}
-	r.URLStruct.RawQuery = query.Encode()
-	return r
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ParamPresent matches if the given query param key is present in the URL.
-func (r *Request) ParamPresent(key string) *Request {
-	r.MatchParam(key, ".*")
-	return r
-}
+func (r *Request) ParamPresent(key string) *Request { _ = "STUB: not implemented"; return nil }
 
 // PathParam matches if a given path parameter key is present in the URL.
 //
 // The value is representative of the restful resource the key defines, e.g.
-//   // /users/123/name
-//   r.PathParam("users", "123")
+//
+//	// /users/123/name
+//	r.PathParam("users", "123")
+//
 // would match.
-func (r *Request) PathParam(key, val string) *Request {
-	r.PathParams[key] = val
-
-	return r
-}
+func (r *Request) PathParam(key, val string) *Request { _ = "STUB: not implemented"; return nil }
 
 // Persist defines the current HTTP mock as persistent and won't be removed after intercepting it.
-func (r *Request) Persist() *Request {
-	r.Persisted = true
-	return r
-}
+func (r *Request) Persist() *Request { _ = "STUB: not implemented"; return nil }
 
 // WithOptions sets the options for the request.
-func (r *Request) WithOptions(options Options) *Request {
-	r.Options = options
-	return r
-}
+func (r *Request) WithOptions(options Options) *Request { _ = "STUB: not implemented"; return nil }
 
 // Times defines the number of times that the current HTTP mock should remain active.
-func (r *Request) Times(num int) *Request {
-	r.Counter = num
-	return r
-}
+func (r *Request) Times(num int) *Request { _ = "STUB: not implemented"; return nil }
 
 // AddMatcher adds a new matcher function to match the request.
-func (r *Request) AddMatcher(fn MatchFunc) *Request {
-	r.Mock.AddMatcher(fn)
-	return r
-}
+func (r *Request) AddMatcher(fn MatchFunc) *Request { _ = "STUB: not implemented"; return nil }
 
 // SetMatcher sets a new matcher function to match the request.
-func (r *Request) SetMatcher(matcher Matcher) *Request {
-	r.Mock.SetMatcher(matcher)
-	return r
-}
+func (r *Request) SetMatcher(matcher Matcher) *Request { _ = "STUB: not implemented"; return nil }
 
 // Map adds a new request mapper function to map http.Request before the matching process.
-func (r *Request) Map(fn MapRequestFunc) *Request {
-	r.Mappers = append(r.Mappers, fn)
-	return r
-}
+func (r *Request) Map(fn MapRequestFunc) *Request { _ = "STUB: not implemented"; return nil }
 
 // Filter filters a new request filter function to filter http.Request before the matching process.
-func (r *Request) Filter(fn FilterRequestFunc) *Request {
-	r.Filters = append(r.Filters, fn)
-	return r
-}
+func (r *Request) Filter(fn FilterRequestFunc) *Request { _ = "STUB: not implemented"; return nil }
 
 // EnableNetworking enables the use real networking for the current mock.
-func (r *Request) EnableNetworking() *Request {
-	if r.Response != nil {
-		r.Response.UseNetwork = true
-	}
-	return r
-}
+func (r *Request) EnableNetworking() *Request { _ = "STUB: not implemented"; return nil }
 
 // Reply defines the Response status code and returns the mock Response DSL.
-func (r *Request) Reply(status int) *Response {
-	return r.Response.Status(status)
-}
+func (r *Request) Reply(status int) *Response { _ = "STUB: not implemented"; return nil }
 
 // ReplyError defines the Response simulated error.
-func (r *Request) ReplyError(err error) *Response {
-	return r.Response.SetError(err)
-}
+func (r *Request) ReplyError(err error) *Response { _ = "STUB: not implemented"; return nil }
 
 // ReplyFunc allows the developer to define the mock response via a custom function.
 func (r *Request) ReplyFunc(replier func(*Response)) *Response {
-	replier(r.Response)
-	return r.Response
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // See 2 (end of page 4) https://www.ietf.org/rfc/rfc2617.txt
@@ -319,7 +198,4 @@ func (r *Request) ReplyFunc(replier func(*Response)) *Response {
 // separated by a single colon (":") character, within a base64
 // encoded string in the credentials."
 // It is not meant to be urlencoded.
-func basicAuth(username, password string) string {
-	auth := username + ":" + password
-	return base64.StdEncoding.EncodeToString([]byte(auth))
-}
+func basicAuth(username, password string) string { _ = "STUB: not implemented"; return "" }

@@ -11,90 +11,34 @@ var storeMutex = sync.RWMutex{}
 var mocks = []Mock{}
 
 // Register registers a new mock in the current mocks stack.
-func Register(mock Mock) {
-	if Exists(mock) {
-		return
-	}
+func Register(mock Mock) { _ = "STUB: not implemented"; return }
 
-	// Make ops thread safe
-	storeMutex.Lock()
-	defer storeMutex.Unlock()
+// Make ops thread safe
 
-	// Expose mock in request/response for delegation
-	mock.Request().Mock = mock
-	mock.Response().Mock = mock
+// Expose mock in request/response for delegation
 
-	// Registers the mock in the global store
-	mocks = append(mocks, mock)
-}
+// Registers the mock in the global store
 
 // GetAll returns the current stack of registered mocks.
-func GetAll() []Mock {
-	storeMutex.RLock()
-	defer storeMutex.RUnlock()
-	return mocks
-}
+func GetAll() []Mock { _ = "STUB: not implemented"; return nil }
 
 // Exists checks if the given Mock is already registered.
-func Exists(m Mock) bool {
-	storeMutex.RLock()
-	defer storeMutex.RUnlock()
-	for _, mock := range mocks {
-		if mock == m {
-			return true
-		}
-	}
-	return false
-}
+func Exists(m Mock) bool { _ = "STUB: not implemented"; return false }
 
 // Remove removes a registered mock by reference.
-func Remove(m Mock) {
-	storeMutex.Lock()
-	defer storeMutex.Unlock()
-	for i, mock := range mocks {
-		if mock == m {
-			mocks = append(mocks[:i], mocks[i+1:]...)
-		}
-	}
-}
+func Remove(m Mock) { _ = "STUB: not implemented"; return }
 
 // Flush flushes the current stack of registered mocks.
-func Flush() {
-	storeMutex.Lock()
-	defer storeMutex.Unlock()
-	mocks = []Mock{}
-}
+func Flush() { _ = "STUB: not implemented"; return }
 
 // Pending returns an slice of pending mocks.
-func Pending() []Mock {
-	Clean()
-	storeMutex.RLock()
-	defer storeMutex.RUnlock()
-	return mocks
-}
+func Pending() []Mock { _ = "STUB: not implemented"; return nil }
 
 // IsDone returns true if all the registered mocks has been triggered successfully.
-func IsDone() bool {
-	return !IsPending()
-}
+func IsDone() bool { _ = "STUB: not implemented"; return false }
 
 // IsPending returns true if there are pending mocks.
-func IsPending() bool {
-	return len(Pending()) > 0
-}
+func IsPending() bool { _ = "STUB: not implemented"; return false }
 
 // Clean cleans the mocks store removing disabled or obsolete mocks.
-func Clean() {
-	storeMutex.Lock()
-	defer storeMutex.Unlock()
-
-	buf := []Mock{}
-	for _, mock := range mocks {
-		if mock.Done() {
-			continue
-		}
-		buf = append(buf, mock)
-	}
-
-	mocks = buf
-}
+func Clean() { _ = "STUB: not implemented"; return }

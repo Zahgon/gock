@@ -4,7 +4,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -13,26 +12,10 @@ import (
 )
 
 // Starts a local HTTP server in background
-func startHTTPServer() *httptest.Server {
-	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Local server received a GET request")
+func startHTTPServer() *httptest.Server { _ = "STUB: not implemented"; return nil }
 
-		res, err := http.Get("http://httpbin.org/nope")
-		if err != nil {
-			msg := fmt.Sprintf("Error from request to httpbin: %s", err)
-			http.Error(w, msg, http.StatusInternalServerError)
-			return
-		}
-
-		body, _ := ioutil.ReadAll(res.Body)
-		// MUST NOT get original body since the networking
-		// wasn't enabled for this request
-		fmt.Printf("Body From httpbin: %s\n", string(body))
-		fmt.Printf("Status From httpbin: %s\n", res.Status)
-
-		io.WriteString(w, "Local Response="+res.Header.Get("Server"))
-	}))
-}
+// MUST NOT get original body since the networking
+// wasn't enabled for this request
 
 func main() {
 	defer gock.Disable()

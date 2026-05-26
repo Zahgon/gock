@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
-	
-  "github.com/h2non/gock"
+
+	"github.com/h2non/gock"
 )
 
 func main() {
@@ -15,7 +15,7 @@ func main() {
 		Map(func(req *http.Request) *http.Request { req.URL.Host = "httpbin.org"; return req }).
 		Map(func(req *http.Request) *http.Request { req.URL.Path = "/"; return req }).
 		Reply(204).
-	  Map(func(res *http.Response) *http.Response { res.StatusCode = 404; return res }).
+		Map(func(res *http.Response) *http.Response { res.StatusCode = 404; return res }).
 		SetHeader("Server", "gock")
 
 	res, err := http.Get("http://httpbin.org/get")

@@ -57,116 +57,65 @@ type disabler struct {
 	mutex sync.RWMutex
 }
 
-func (d *disabler) isDisabled() bool {
-	d.mutex.RLock()
-	defer d.mutex.RUnlock()
-	return d.disabled
-}
+func (d *disabler) isDisabled() bool { _ = "STUB: not implemented"; return false }
 
-func (d *disabler) Disable() {
-	d.mutex.Lock()
-	defer d.mutex.Unlock()
-	d.disabled = true
-}
+func (d *disabler) Disable() { _ = "STUB: not implemented"; return }
 
 // NewMock creates a new HTTP mock based on the given request and response instances.
 // It's mostly used internally.
-func NewMock(req *Request, res *Response) *Mocker {
-	mock := &Mocker{
-		disabler: new(disabler),
-		request:  req,
-		response: res,
-		matcher:  DefaultMatcher.Clone(),
-	}
-	res.Mock = mock
-	req.Mock = mock
-	req.Response = res
-	return mock
-}
+func NewMock(req *Request, res *Response) *Mocker { _ = "STUB: not implemented"; return nil }
 
 // Disable disables the current mock manually.
-func (m *Mocker) Disable() {
-	m.disabler.Disable()
-}
+func (m *Mocker) Disable() { _ = "STUB: not implemented"; return }
 
 // Done returns true in case that the current mock
 // instance is disabled and therefore must be removed.
 func (m *Mocker) Done() bool {
+	_ = "STUB: not implemented"
 	// prevent deadlock with m.mutex
-	if m.disabler.isDisabled() {
-		return true
-	}
-
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
-	return !m.request.Persisted && m.request.Counter == 0
+	return false
 }
 
 // Request returns the Request instance
 // configured for the current HTTP mock.
 func (m *Mocker) Request() *Request {
-	return m.request
+	_ = "STUB: not implemented"
+
+	// Response returns the Response instance
+	// configured for the current HTTP mock.
+	return nil
 }
 
-// Response returns the Response instance
-// configured for the current HTTP mock.
 func (m *Mocker) Response() *Response {
-	return m.response
+	_ = "STUB: not implemented"
+
+	// Match matches the given http.Request with the current Request
+	// mock expectation, returning true if matches.
+	return nil
 }
 
-// Match matches the given http.Request with the current Request
-// mock expectation, returning true if matches.
 func (m *Mocker) Match(req *http.Request) (bool, error) {
-	if m.disabler.isDisabled() {
-		return false, nil
-	}
-
-	// Filter
-	for _, filter := range m.request.Filters {
-		if !filter(req) {
-			return false, nil
-		}
-	}
-
-	// Map
-	for _, mapper := range m.request.Mappers {
-		if treq := mapper(req); treq != nil {
-			req = treq
-		}
-	}
-
-	// Match
-	matches, err := m.matcher.Match(req, m.request)
-	if matches {
-		m.decrement()
-	}
-
-	return matches, err
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// Filter
+
+// Map
+
+// Match
 
 // SetMatcher sets a new matcher implementation
 // for the current mock expectation.
-func (m *Mocker) SetMatcher(matcher Matcher) {
-	m.matcher = matcher
-}
+func (m *Mocker) SetMatcher(matcher Matcher) { _ = "STUB: not implemented"; return }
 
 // AddMatcher adds a new matcher function
 // for the current mock expectation.
 func (m *Mocker) AddMatcher(fn MatchFunc) {
-	m.matcher.Add(fn)
+	_ = "STUB: not implemented"
+
+	// decrement decrements the current mock Request counter.
+	return
 }
 
-// decrement decrements the current mock Request counter.
-func (m *Mocker) decrement() {
-	if m.request.Persisted {
-		return
-	}
-
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
-
-	m.request.Counter--
-	if m.request.Counter == 0 {
-		m.disabler.Disable()
-	}
-}
+func (m *Mocker) decrement() { _ = "STUB: not implemented"; return }

@@ -2,8 +2,9 @@ package main
 
 import (
 	"bytes"
-	"github.com/h2non/gock"
 	"net/http"
+
+	"github.com/h2non/gock"
 )
 
 func main() {
